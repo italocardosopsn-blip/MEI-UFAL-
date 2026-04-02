@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEI Fácil — Seu portal MEI</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #00b37e;
+    --verde-escuro: #007f5c;
+    --verde-claro: #d1fae5;
+    --amarelo: #f59e0b;
+    --azul: #0ea5e9;
+    --roxo: #7c3aed;
+    --cinza-bg: #f0fdf6;
+    --cinza-escuro: #1a2e24;
+    --texto: #1e3a2f;
+    --texto-suave: #4d7a65;
+    --borda: #b7e4cf;
+    --card-bg: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cinza-bg);
+    color: var(--texto);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BG decorativo */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, #00b37e22 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #0ea5e922 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--borda);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    animation: slideDown 0.5s ease;
+  }
+  @keyframes slideDown { from { transform: translateY(-64px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.4rem;
+    color: var(--verde-escuro);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .logo-badge {
+    background: var(--verde);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  nav { display: flex; gap: 1.5rem; }
+  nav a {
+    text-decoration: none;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--verde); }
+
+  /* HERO */
+  .hero {
+    position: relative; z-index: 1;
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+  @keyframes fadeUp { from { transform: translateY(30px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--verde);
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--cinza-escuro);
+    margin-bottom: 1rem;
+  }
+  .hero h1 span { color: var(--verde); }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--texto-suave);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .hero-stats {
+    display: flex; justify-content: center; gap: 2.5rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+  .stat {
+    text-align: center;
+    animation: fadeUp 0.7s ease both;
+  }
+  .stat:nth-child(2) { animation-delay: 0.15s; }
+  .stat:nth-child(3) { animation-delay: 0.3s; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--verde);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--texto-suave); margin-top: 2px; }
+
+  /* SEÇÕES */
+  section {
+    position: relative; z-index: 1;
+    padding: 3rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--cinza-escuro);
+    margin-bottom: 0.4rem;
+  }
+  .section-sub {
+    color: var(--texto-suave);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+  .section-line {
+    width: 40px; height: 3px;
+    background: var(--verde);
+    border-radius: 2px;
+    margin-bottom: 0.8rem;
+  }
+
+  /* ATALHOS */
+  .atalhos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .atalho-card {
+    background: white;
+    border: 1.5px solid var(--borda);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex; align-items: center; gap: 1rem;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease both;
+  }
+  .atalho-card:nth-child(2) { animation-delay: 0.1s; }
+  .atalho-card:nth-child(3) { animation-delay: 0.2s; }
+  .atalho-card:nth-child(4) { animation-delay: 0.3s; }
+
+  .atalho-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 70%, rgba(0,179,126,0.06));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .atalho-card:hover {
+    border-color: var(--verde);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,179,126,0.15);
+  }
+  .atalho-card:hover::before { opacity: 1; }
+
+  .atalho-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .icon-verde { background: #d1fae5; }
+  .icon-azul  { background: #e0f2fe; }
+  .icon-roxo  { background: #ede9fe; }
+  .icon-amarelo { background: #fef3c7; }
+
+  .atalho-info { flex: 1; }
+  .atalho-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .atalho-info p {
+    font-size: 0.82rem;
+    color: var(--texto-suave);
+    line-height: 1.5;
+  }
+  .atalho-arrow {
+    font-size: 1.1rem;
+    color: var(--verde);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .atalho-card:hover .atalho-arrow { transform: translateX(4px); }
+
+  /* DICAS */
+  .dicas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .dica-card {
+    background: white;
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    animation: fadeUp 0.6s ease both;
+  }
+  .dica-card:hover {
+    border-color: var(--verde);
+    box-shadow: 0 8px 24px rgba(0,179,126,0.1);
+    transform: translateY(-3px);
+  }
+  .dica-card:nth-child(2) { animation-delay: 0.08s; }
+  .dica-card:nth-child(3) { animation-delay: 0.16s; }
+  .dica-card:nth-child(4) { animation-delay: 0.24s; }
+  .dica-card:nth-child(5) { animation-delay: 0.32s; }
+  .dica-card:nth-child(6) { animation-delay: 0.40s; }
+
+  .dica-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 0.8rem;
+  }
+  .tag-fiscal    { background: #d1fae5; color: #065f46; }
+  .tag-financas  { background: #fef3c7; color: #92400e; }
+  .tag-legal     { background: #ede9fe; color: #4c1d95; }
+  .tag-gestao    { background: #e0f2fe; color: #0c4a6e; }
+
+  .dica-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--cinza-escuro);
+  }
+  .dica-card p {
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+    line-height: 1.65;
+  }
+
+  /* TÓPICOS ACCORDION */
+  .topicos-list { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .topico-item {
+    background: white;
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    animation: fadeUp 0.6s ease both;
+  }
+  .topico-item:nth-child(2) { animation-delay: 0.08s; }
+  .topico-item:nth-child(3) { animation-delay: 0.16s; }
+  .topico-item:nth-child(4) { animation-delay: 0.24s; }
+  .topico-item:nth-child(5) { animation-delay: 0.32s; }
+
+  .topico-item.open { border-color: var(--verde); }
+
+  .topico-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .topico-header-left { display: flex; align-items: center; gap: 0.8rem; }
+  .topico-num {
+    width: 28px; height: 28px;
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .topico-item.open .topico-num { background: var(--verde); color: white; }
+  .topico-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--cinza-escuro);
+  }
+  .topico-chevron {
+    font-size: 1.1rem;
+    color: var(--verde);
+    transition: transform 0.3s;
+  }
+  .topico-item.open .topico-chevron { transform: rotate(180deg); }
+
+  .topico-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .topico-body-inner {
+    padding: 0 1.4rem 1.2rem;
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+    line-height: 1.75;
+    border-top: 1px solid var(--verde-claro);
+    padding-top: 1rem;
+  }
+  .topico-body-inner ul { padding-left: 1.2rem; }
+  .topico-body-inner li { margin-bottom: 0.4rem; }
+
+  /* ALERTA */
+  .alerta {
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border: 1.5px solid #f59e0b;
+    border-radius: 14px;
+    padding: 1.2rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin: 2rem 0;
+    animation: fadeUp 0.6s ease both;
+  }
+  .alerta-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .alerta-text h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: #92400e; margin-bottom: 0.3rem;
+  }
+  .alerta-text p { font-size: 0.85rem; color: #78350f; line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-top: 1px solid var(--borda);
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+    margin-top: 2rem;
+  }
+  footer strong { color: var(--verde); }
+
+  /* SEPARADOR */
+  .sep {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--borda), transparent);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    nav { display: none; }
+    .hero { padding: 3rem 1.2rem 2rem; }
+    section { padding: 2rem 1.2rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="logo-badge">MEI</span> Fácil</div>
+  <nav>
+    <a href="#atalhos">Atalhos</a>
+    <a href="#dicas">Dicas</a>
+    <a href="#topicos">Tópicos</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">🇧🇷 Portal do Microempreendedor Individual</div>
+  <h1>Tudo que o <span>MEI</span> precisa<br>em um só lugar</h1>
+  <p>Acesse rapidamente seus documentos, entenda suas obrigações e fique sempre em dia com o governo.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Atalhos rápidos</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Dicas essenciais</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Tópicos explicados</div></div>
+  </div>
+</div>
+
+<!-- ATALHOS -->
+<section id="atalhos">
+  <div class="section-line"></div>
+  <h2 class="section-title">⚡ Atalhos Rápidos</h2>
+  <p class="section-sub">Clique para acessar os portais oficiais do governo</p>
+
+  <div class="atalhos-grid">
+
+    <a class="atalho-card" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/pagamento-de-contribuicao-mensal-das" target="_blank" rel="noopener">
+      <div class="atalho-icon icon-verde">💳</div>
+      <div class="atalho-info">
+        <h3>DAS MEI</h3>
+        <p>Gere e pague sua guia mensal de contribuição previdenciária</p>
+      </div>
+      <span class="atalho-arrow">→</span>
+    </a>
+
+    <a class="atalho-card" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/declaracao-anual-de-faturamento-dasn" target="_blank" rel="noopener">
+      <div class="atalho-icon icon-azul">📄</div>
+      <div class="atalho-info">
+        <h3>DASN MEI</h3>
+        <p>Declare seu faturamento anual — prazo até 31 de maio</p>
+      </div>
+      <span class="atalho-arrow">→</span>
+    </a>
+
+    <a class="atalho-card" href="https://regularize.pgfn.gov.br/" target="_blank" rel="noopener">
+      <div class="atalho-icon icon-roxo">🔒</div>
+      <div class="atalho-info">
+        <h3>Regularize</h3>
+        <p>Consulte e regularize débitos com a Receita Federal</p>
+      </div>
+      <span class="atalho-arrow">→</span>
+    </a>
+
+    <a class="atalho-card" href="https://mei.receita.economia.gov.br/login" target="_blank" rel="noopener">
+      <div class="atalho-icon icon-amarelo">🏠</div>
+      <div class="atalho-info">
+        <h3>Portal MEI</h3>
+        <p>Acesse o portal completo do MEI para todos os serviços</p>
+      </div>
+      <span class="atalho-arrow">→</span>
+    </a>
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- DICAS -->
+<section id="dicas">
+  <div class="section-line"></div>
+  <h2 class="section-title">💡 Dicas Essenciais</h2>
+  <p class="section-sub">Boas práticas para manter seu MEI saudável e regularizado</p>
+
+  <div class="alerta">
+    <span class="alerta-icon">⚠️</span>
+    <div class="alerta-text">
+      <h4>Fique atento ao prazo da DASN!</h4>
+      <p>A Declaração Anual do MEI deve ser entregue até <strong>31 de maio</strong> de cada ano. Atrasos geram multa mínima de R$ 50,00.</p>
+    </div>
+  </div>
+
+  <div class="dicas-grid">
+
+    <div class="dica-card">
+      <span class="dica-tag tag-fiscal">Fiscal</span>
+      <h3>Pague o DAS todo mês</h3>
+      <p>O DAS deve ser pago até o dia 20 de cada mês. O atraso gera juros e pode levar ao cancelamento do CNPJ.</p>
+    </div>
+
+    <div class="dica-card">
+      <span class="dica-tag tag-financas">Finanças</span>
+      <h3>Separe conta PF e PJ</h3>
+      <p>Mantenha uma conta bancária separada para o negócio. Isso facilita o controle financeiro e evita confusão com seus gastos pessoais.</p>
+    </div>
+
+    <div class="dica-card">
+      <span class="dica-tag tag-legal">Legal</span>
+      <h3>Emita nota fiscal</h3>
+      <p>Ao prestar serviços para empresas, a emissão de nota fiscal é obrigatória. Fique regularizado e evite problemas com clientes.</p>
+    </div>
+
+    <div class="dica-card">
+      <span class="dica-tag tag-gestao">Gestão</span>
+      <h3>Controle seu faturamento</h3>
+      <p>O MEI pode faturar até R$ 81.000/ano (R$ 6.750/mês). Ultrapassar esse limite pode causar seu desenquadramento.</p>
+    </div>
+
+    <div class="dica-card">
+      <span class="dica-tag tag-fiscal">Fiscal</span>
+      <h3>Guarde comprovantes</h3>
+      <p>Mantenha todos os comprovantes de pagamento e notas por pelo menos 5 anos. Eles são essenciais em caso de fiscalização.</p>
+    </div>
+
+    <div class="dica-card">
+      <span class="dica-tag tag-financas">Finanças</span>
+      <h3>Use o FGTS e benefícios</h3>
+      <p>Contribuindo com o DAS, você tem direito à aposentadoria, auxílio-doença, salário-maternidade e outros benefícios do INSS.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- TÓPICOS -->
+<section id="topicos">
+  <div class="section-line"></div>
+  <h2 class="section-title">📚 Tópicos Explicados</h2>
+  <p class="section-sub">Entenda os conceitos mais importantes do MEI</p>
+
+  <div class="topicos-list" id="topicos-list">
+
+    <div class="topico-item">
+      <div class="topico-header" onclick="toggleTopico(this)">
+        <div class="topico-header-left">
+          <span class="topico-num">1</span>
+          <span class="topico-title">O que é o DAS MEI?</span>
+        </div>
+        <span class="topico-chevron">▼</span>
+      </div>
+      <div class="topico-body">
+        <div class="topico-body-inner">
+          O <strong>DAS (Documento de Arrecadação do Simples Nacional)</strong> é a guia mensal de pagamento do MEI. Ela engloba:
+          <ul>
+            <li>Contribuição ao INSS (5% do salário mínimo)</li>
+            <li>ISS (R$ 5,00) — para prestadores de serviço</li>
+            <li>ICMS (R$ 1,00) — para comércio e indústria</li>
+          </ul>
+          Pague até o dia 20 de cada mês para evitar juros e manter seu CNPJ ativo.
+        </div>
+      </div>
+    </div>
+
+    <div class="topico-item">
+      <div class="topico-header" onclick="toggleTopico(this)">
+        <div class="topico-header-left">
+          <span class="topico-num">2</span>
+          <span class="topico-title">O que é a DASN MEI?</span>
+        </div>
+        <span class="topico-chevron">▼</span>
+      </div>
+      <div class="topico-body">
+        <div class="topico-body-inner">
+          A <strong>DASN (Declaração Anual do Simples Nacional)</strong> é obrigatória e deve ser entregue todo ano até <strong>31 de maio</strong>. Nela você informa:
+          <ul>
+            <li>O total faturado no ano anterior</li>
+            <li>Se teve funcionário contratado</li>
+          </ul>
+          Mesmo que não tenha faturado nada, a declaração deve ser feita (com valor zero). A multa por atraso é de R$ 50,00 ou 2% do faturamento.
+        </div>
+      </div>
+    </div>
+
+    <div class="topico-item">
+      <div class="topico-header" onclick="toggleTopico(this)">
+        <div class="topico-header-left">
+          <span class="topico-num">3</span>
+          <span class="topico-title">O que é o Regularize?</span>
+        </div>
+        <span class="topico-chevron">▼</span>
+      </div>
+      <div class="topico-body">
+        <div class="topico-body-inner">
+          O <strong>Regularize</strong> é o portal da Procuradoria-Geral da Fazenda Nacional (PGFN) para consulta e negociação de dívidas tributárias federais. Por lá você pode:
+          <ul>
+            <li>Verificar se possui débitos em aberto</li>
+            <li>Parcelar dívidas com condições especiais</li>
+            <li>Emitir certidão negativa de débitos (CND)</li>
+          </ul>
+          Manter-se regular evita bloqueio do CNPJ e restrições em licitações e financiamentos.
+        </div>
+      </div>
+    </div>
+
+    <div class="topico-item">
+      <div class="topico-header" onclick="toggleTopico(this)">
+        <div class="topico-header-left">
+          <span class="topico-num">4</span>
+          <span class="topico-title">Limite de faturamento do MEI</span>
+        </div>
+        <span class="topico-chevron">▼</span>
+      </div>
+      <div class="topico-body">
+        <div class="topico-body-inner">
+          O MEI pode faturar até <strong>R$ 81.000 por ano</strong> (equivalente a R$ 6.750 por mês). Se ultrapassar esse limite:
+          <ul>
+            <li>Até 20% acima: é enquadrado como Microempresa (ME)</li>
+            <li>Acima de 20%: pode perder benefícios retroativos</li>
+          </ul>
+          Fique de olho no faturamento mensal e planeje o crescimento do seu negócio com antecedência.
+        </div>
+      </div>
+    </div>
+
+    <div class="topico-item">
+      <div class="topico-header" onclick="toggleTopico(this)">
+        <div class="topico-header-left">
+          <span class="topico-num">5</span>
+          <span class="topico-title">Posso ter funcionário como MEI?</span>
+        </div>
+        <span class="topico-chevron">▼</span>
+      </div>
+      <div class="topico-body">
+        <div class="topico-body-inner">
+          Sim! O MEI pode contratar <strong>apenas 1 funcionário</strong>, e deve pagar a ele o salário mínimo ou o piso da categoria. Como empregador, você deve:
+          <ul>
+            <li>Recolher 3% de INSS patronal pelo funcionário</li>
+            <li>Registrar o funcionário em carteira (CTPS)</li>
+            <li>Entregar a GFIP mensalmente</li>
+          </ul>
+          Não esqueça de informar a existência do funcionário na DASN anual.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p style="margin-bottom:0.4rem;">Projeto desenvolvido pela <strong>FEAC — UFAL</strong> · <strong>Rede NAF</strong></p>
+  <p style="font-size:0.78rem; opacity:0.7;">As informações são de caráter orientativo. Consulte sempre um contador para decisões importantes.</p>
+</footer>
+
+<script>
+  function toggleTopico(header) {
+    const item = header.closest('.topico-item');
+    const body = item.querySelector('.topico-body');
+    const isOpen = item.classList.contains('open');
+
+    // fechar todos
+    document.querySelectorAll('.topico-item').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.topico-body').style.maxHeight = '0';
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+
+  // Intersection Observer para animar ao entrar na tela
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.dica-card, .atalho-card, .topico-item, .alerta').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
